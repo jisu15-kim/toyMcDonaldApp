@@ -39,7 +39,7 @@ class MainCell: UITableViewCell {
         super.layoutSubviews()
         
         contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 5, left: 16, bottom: 5, right: 16))
-        contentView.layer.cornerRadius = 10
+        contentView.layer.cornerRadius = 20
         
     }
     
@@ -56,7 +56,8 @@ class MainCell: UITableViewCell {
     }
     
     func setupUI() {
-        basketButton.layer.cornerRadius = basketButton.frame.height / 2
+        basketButton.layer.cornerRadius = 20
+        //basketButton.tintColor = .black
         self.selectionStyle = .blue
     }
     

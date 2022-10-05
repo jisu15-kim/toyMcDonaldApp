@@ -13,6 +13,8 @@ class MainViewController: UIViewController {
     
     var dataManager = DataManager()
     var burgerArray: [McdonaldModel] = []
+    var basketVC = BasketViewController()
+    var numFormatter = NumberFormatter()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +33,9 @@ class MainViewController: UIViewController {
         mainTableView.delegate = self
         mainTableView.dataSource = self
         mainTableView.rowHeight = 120
+    }
+    
+    func setupTabbar() {
         
     }
     
@@ -58,11 +63,17 @@ extension MainViewController: UITableViewDataSource {
         let burger = array[indexPath.row]
         cell.burger = burger
         
+        var price: String {
+            let value = burger.price as NSNumber
+            numFormatter.numberStyle = .decimal
+            let result = numFormatter.string(from: value)
+            return "\(result!)원"
+        }
         
         cell.mainTitle.text = burger.burgerName
         cell.kcalLabel.text = "\(burger.kcal)kcal"
         cell.mainImage.image = burger.burgerImage
-        cell.priceLabel.text = "\(burger.price)원"
+        cell.priceLabel.text = price
         
         return cell
     }

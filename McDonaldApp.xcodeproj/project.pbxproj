@@ -19,6 +19,7 @@
 		CD4B3EAB28EC6B3D00EE2006 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4B3EAA28EC6B3D00EE2006 /* DataManager.swift */; };
 		CD4B3EAE28EC7E2800EE2006 /* TableViewButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4B3EAD28EC7E2800EE2006 /* TableViewButton.swift */; };
 		CD4B3EB028EC911F00EE2006 /* BasketCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4B3EAF28EC911F00EE2006 /* BasketCell.swift */; };
+		CD57683628EDE4FD00C8F0F3 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD57683528EDE4FD00C8F0F3 /* EmptyView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		CD4B3EAA28EC6B3D00EE2006 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		CD4B3EAD28EC7E2800EE2006 /* TableViewButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewButton.swift; sourceTree = "<group>"; };
 		CD4B3EAF28EC911F00EE2006 /* BasketCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketCell.swift; sourceTree = "<group>"; };
+		CD57683528EDE4FD00C8F0F3 /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +98,7 @@
 				CD4B3E9328EC60CB00EE2006 /* Main.storyboard */,
 				CD4B3EAF28EC911F00EE2006 /* BasketCell.swift */,
 				CD4B3EA628EC66FE00EE2006 /* MainCell.swift */,
+				CD57683528EDE4FD00C8F0F3 /* EmptyView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -194,6 +197,7 @@
 				CD4B3E8E28EC60CB00EE2006 /* AppDelegate.swift in Sources */,
 				CD4B3EAB28EC6B3D00EE2006 /* DataManager.swift in Sources */,
 				CD4B3E9028EC60CB00EE2006 /* SceneDelegate.swift in Sources */,
+				CD57683628EDE4FD00C8F0F3 /* EmptyView.swift in Sources */,
 				CD4B3EA728EC66FE00EE2006 /* MainCell.swift in Sources */,
 				CD4B3EA928EC6A9B00EE2006 /* McdonaldModel.swift in Sources */,
 				CD4B3EAE28EC7E2800EE2006 /* TableViewButton.swift in Sources */,
