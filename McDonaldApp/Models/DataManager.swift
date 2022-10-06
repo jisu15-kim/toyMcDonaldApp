@@ -12,6 +12,9 @@ final class DataManager {
     
     private var burgerArray: [McdonaldModel] = []
     private static var basketArray: [McdonaldModel] = []
+    
+    private static var basketDictionary: [McdonaldModel:Int] = [:]
+    
     private static var total = 0
     
     
@@ -41,25 +44,62 @@ final class DataManager {
     
     func addToBasket(burger: McdonaldModel) {
         DataManager.basketArray.append(burger)
+        
+
+        let result = DataManager.basketDictionary.keys.contains(burger)
+        var count = DataManager.basketDictionary[burger]
+
+        if result == true {
+            count! += 1
+            DataManager.basketDictionary.updateValue(count!, forKey: burger)
+        } else {
+            DataManager.basketDictionary.updateValue(1, forKey: burger)
+        }
+        //print(DataManager.basketDictionary)
         calculTotalPrice()
     }
     
     func calculTotalPrice() {
         DataManager.total = 0
-        for array in DataManager.basketArray {
-            DataManager.total += array.price
+//        for array in DataManager.basketArray {
+//            DataManager.total += array.price
+//        }
+        let data = DataManager.basketDictionary
+        
+        for array in data {
+            DataManager.total += array.key.price * array.value
         }
         print("Total: \(DataManager.total)")
     }
     
-    func getBasketData() -> [McdonaldModel] {
-        
-        return DataManager.basketArray
+    func getBasketData() -> [McdonaldModel:Int] {
+        return DataManager.basketDictionary
+        // return DataManager.basketArray
+    }
+    
+    func getBasketDataCounts() -> [Int] {
+        let data = Array(DataManager.basketDictionary.values)
+        return data
     }
     
     func removeBasketItem(index: Int) {
         DataManager.basketArray.remove(at: index)
         calculTotalPrice()
+    }
+    
+    func removeBasketData(burger: McdonaldModel, count: Int = 1) {
+        print(#function)
+        
+        guard var data = DataManager.basketDictionary[burger] else { return }
+        if data > 0 {
+            data -= count
+            DataManager.basketDictionary.updateValue(count, forKey: burger)
+            if data == 0 {
+                DataManager.basketDictionary.removeValue(forKey: burger)
+            }
+        }
+        calculTotalPrice()
+        print(DataManager.basketDictionary)
     }
     
     func getTotalPrice() -> Int {

@@ -13,6 +13,7 @@ class MainViewController: UIViewController {
     
     var dataManager = DataManager()
     var burgerArray: [McdonaldModel] = []
+    var basketArray: [Int] = []
     var basketVC = BasketViewController()
     var numFormatter = NumberFormatter()
     
@@ -27,6 +28,9 @@ class MainViewController: UIViewController {
     func setupData() {
         dataManager.makeBurgerData()
         burgerArray = dataManager.getBurgerData()
+        refreshTabBar(num: 0)
+        basketArray = dataManager.getBasketDataCounts()
+        tabBarController?.delegate = self
     }
     
     func setupTableView() {
@@ -41,8 +45,27 @@ class MainViewController: UIViewController {
     
     func addBasket(burger: McdonaldModel) {
         dataManager.addToBasket(burger: burger)
+        refreshBasket()
     }
     
+    func refreshBasket() {
+        basketArray = dataManager.getBasketDataCounts()
+        var data = 0
+        for array in basketArray {
+            data += Int(array)
+        }
+        refreshTabBar(num: data)
+        print(data)
+    }
+    
+    private func refreshTabBar(num: Int) {
+        if let tabItems = tabBarController?.tabBar.items {
+            // In this case we want to modify the badge number of the third tab:
+            let tabItem = tabItems[2]
+            tabItem.badgeValue = "\(num)"
+            return
+        }
+    }
     
 }
 
@@ -78,5 +101,9 @@ extension MainViewController: UITableViewDataSource {
         return cell
     }
     
+    
+}
+
+extension MainViewController: UITabBarControllerDelegate {
     
 }

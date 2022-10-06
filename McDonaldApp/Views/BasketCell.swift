@@ -11,6 +11,8 @@ class BasketCell: UITableViewCell {
     
     var item: McdonaldModel?
     var basketVC = BasketViewController()
+    var itemCount: Double = 0.0
+    
     
     
     @IBOutlet weak var titleLabel: UILabel!
@@ -24,19 +26,42 @@ class BasketCell: UITableViewCell {
         super.awakeFromNib()
         
         setupUI()
+        setupData()
     }
-    
+
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
     
+    
     func setupUI() {
         mainImage.layer.cornerRadius = 30
-        removeButton.setTitle("", for: .normal)
-    }
-    
-    func emptyUI() {
         
     }
+    
+    func setupData() {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
+            self.itemCount = self.countStepper.value
+            print("Value: \(self.countStepper.value)")
+            print(self.itemCount)
+        }
+    }
+    
+    @IBAction func countStepperTapped(_ sender: UIStepper) {
+        countLabel.text = Int(sender.value).description
+        guard let data = item else { return }
+        let gap = itemCount - sender.value
+        if gap > 0 {
+            // 마이너스 버튼 클릭됨
+            print("마이너스 버튼 클릭됨")
+            basketVC.removeButton(burger: data, count: 1)
+        } else if gap < 0 {
+            // 플러스 버튼 클릭됨
+            print("플러스 버튼 클릭됨")
+            basketVC.addButton(burger: data)
+        }
+        itemCount = sender.value
+    }
 }
+

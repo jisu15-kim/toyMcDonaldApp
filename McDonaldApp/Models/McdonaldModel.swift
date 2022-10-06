@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct McdonaldModel {
+struct McdonaldModel: Hashable {
     
     var burgerName: String
     var burgerImage: UIImage?

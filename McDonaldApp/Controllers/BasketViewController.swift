@@ -21,17 +21,11 @@ class BasketViewController: UIViewController {
             emptyTextConditional()
         }
     }
+    var basketCountDatas: [Int]?
     var dataManager = DataManager()
     let tabBar = UITabBarItem()
     let numberFormatter = NumberFormatter()
-    var totalPrice: Int = 0 {
-        didSet {
-            let value = totalPrice as NSNumber
-            numberFormatter.numberStyle = .decimal
-            let result = numberFormatter.string(from: value)
-            totalPriceLabel.text = "\(result!)원"
-        }
-    }
+    var totalPrice: Int = 0
     
     @IBOutlet weak var basketTableView: UITableView!
     
@@ -54,6 +48,7 @@ class BasketViewController: UIViewController {
         emptyTextConditional()
         setupTabBar()
         setupUI()
+        updateDatas()
         setupTableView()
         refreshTabBar(num: 0)
     }
@@ -62,6 +57,24 @@ class BasketViewController: UIViewController {
         super.viewWillAppear(animated)
         setupDatas()
         basketTableView.reloadData()
+    }
+    
+    func setupDatas() {
+        let keys = Array(dataManager.getBasketData().keys)
+        self.basketData = keys
+
+        let count = dataManager.getBasketDataCounts()
+        self.basketCountDatas = count
+        
+        totalPrice = dataManager.getTotalPrice()
+    }
+    
+    func updateDatas() { // 도데체 왜 에러가 날까 ?!
+        totalPrice = dataManager.getTotalPrice()
+        let value = totalPrice as NSNumber
+        numberFormatter.numberStyle = .decimal
+        guard let result = numberFormatter.string(from: value) else { return }
+        self.totalPriceLabel.text = "\(result)원"
     }
     
     func setupTableView() {
@@ -104,25 +117,34 @@ class BasketViewController: UIViewController {
         }
     }
     
-    func setupDatas() {
-        self.basketData = dataManager.getBasketData()
-        totalPrice = dataManager.getTotalPrice()
+    func removeButton(burger: McdonaldModel, count: Int = 1) {
+        dataManager.removeBasketData(burger: burger, count: count)
+        // updateDatas()
+        // setupDatas()
+        // basketTableView.reloadData()
     }
     
-    
-    @IBAction func removeButtonTapped(_ sender: UIButton) {
-        let contentView = sender.superview
-        let cell = contentView?.superview as! UITableViewCell
-        
-        guard let indexPath = basketTableView.indexPath(for: cell)?.row else { return }
-        
-        dataManager.removeBasketItem(index: indexPath)
-        setupDatas()
-        basketTableView.reloadData()
+    func addButton(burger: McdonaldModel) {
+        dataManager.addToBasket(burger: burger)
+        // updateDatas()
     }
+    
 }
 
 extension BasketViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let delete = UIContextualAction(style: .normal, title: "삭제") { (UIContextualAction, UIView, success: @escaping (Bool) -> Void) in
+            guard let selectedBurger = self.basketData?[indexPath.row] else { return }
+            guard let selectedBurgerCount = self.basketCountDatas?[indexPath.row] else { return }
+            self.removeButton(burger: selectedBurger, count: selectedBurgerCount)
+            success(true)
+        }
+        delete.backgroundColor = .systemRed
+
+        //actions배열 인덱스 0이 왼쪽에 붙어서 나옴
+        return UISwipeActionsConfiguration(actions:[delete])
+    }
     
 }
 
@@ -136,7 +158,9 @@ extension BasketViewController: UITableViewDataSource {
         let cell = basketTableView.dequeueReusableCell(withIdentifier: "BasketCell", for: indexPath) as! BasketCell
         
         guard let array = basketData else { return cell }
+        guard let countArray = basketCountDatas else { return cell }
         let item = array[indexPath.row]
+        let count = countArray[indexPath.row]
         cell.item = item
         
         // 콤마찍기
@@ -150,6 +174,9 @@ extension BasketViewController: UITableViewDataSource {
         cell.titleLabel.text = item.burgerName
         cell.mainImage.image = item.burgerImage
         cell.priceLabel.text = price
+        cell.countLabel.text = "\(count)"
+        cell.countStepper.value = Double(count)
+        print(count)
         return cell
     }
     

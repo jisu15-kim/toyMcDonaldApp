@@ -131,7 +131,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wPT-u5-xYj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-705" y="934"/>
+            <point key="canvasLocation" x="-226" y="933"/>
         </scene>
         <!--장바구니-->
         <scene sceneID="oKE-Qs-ngc">
@@ -183,6 +183,9 @@
                                                     <subviews>
                                                         <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="dWT-Jj-C0d">
                                                             <rect key="frame" x="0.0" y="0.0" width="94" height="32"/>
+                                                            <connections>
+                                                                <action selector="countStepperTapped:" destination="jZh-Yh-PEP" eventType="valueChanged" id="hYN-KW-J2g"/>
+                                                            </connections>
                                                         </stepper>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1개" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9wS-4D-krX">
                                                             <rect key="frame" x="0.0" y="52" width="94" height="17"/>
@@ -192,28 +195,13 @@
                                                         </label>
                                                     </subviews>
                                                 </stackView>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mLi-oj-w7q">
-                                                    <rect key="frame" x="350" y="17" width="20" height="20"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="20" id="FbX-38-clu"/>
-                                                        <constraint firstAttribute="height" constant="20" id="ngb-Yj-cmR"/>
-                                                    </constraints>
-                                                    <color key="tintColor" systemColor="systemRedColor"/>
-                                                    <state key="normal" title="Button"/>
-                                                    <buttonConfiguration key="configuration" style="plain" image="xmark.app.fill" catalog="system"/>
-                                                    <connections>
-                                                        <action selector="removeButtonTapped:" destination="RPJ-jM-s5H" eventType="touchUpInside" id="wlb-0i-o5L"/>
-                                                    </connections>
-                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="sI5-W7-jaW" secondAttribute="bottom" constant="23" id="AFV-K6-Wgr"/>
-                                                <constraint firstItem="mLi-oj-w7q" firstAttribute="top" secondItem="vEW-2a-ggC" secondAttribute="top" constant="17" id="D6O-Y6-Zsb"/>
                                                 <constraint firstAttribute="bottom" secondItem="tyv-oZ-HFA" secondAttribute="bottom" constant="23" id="DHN-hP-l9D"/>
                                                 <constraint firstItem="dND-lz-Nb6" firstAttribute="leading" secondItem="tyv-oZ-HFA" secondAttribute="leading" id="Hwd-8T-kU9"/>
                                                 <constraint firstItem="RfE-Nr-1LW" firstAttribute="bottom" secondItem="tyv-oZ-HFA" secondAttribute="bottom" id="bat-gF-Wpk"/>
                                                 <constraint firstItem="RfE-Nr-1LW" firstAttribute="top" secondItem="tyv-oZ-HFA" secondAttribute="bottom" constant="-30" id="h8n-my-guM"/>
-                                                <constraint firstItem="mLi-oj-w7q" firstAttribute="trailing" secondItem="dWT-Jj-C0d" secondAttribute="trailing" id="lwM-XX-gfs"/>
                                                 <constraint firstItem="tyv-oZ-HFA" firstAttribute="leading" secondItem="vEW-2a-ggC" secondAttribute="leading" constant="20" symbolic="YES" id="ndM-oQ-ZPh"/>
                                                 <constraint firstItem="RfE-Nr-1LW" firstAttribute="centerX" secondItem="vEW-2a-ggC" secondAttribute="centerX" id="sLW-mM-jlc"/>
                                                 <constraint firstItem="dND-lz-Nb6" firstAttribute="top" secondItem="vEW-2a-ggC" secondAttribute="top" constant="30" id="uQ9-EW-tMW"/>
@@ -227,7 +215,6 @@
                                             <outlet property="countStepper" destination="dWT-Jj-C0d" id="1fA-Pv-IH2"/>
                                             <outlet property="mainImage" destination="tyv-oZ-HFA" id="ghB-o6-39J"/>
                                             <outlet property="priceLabel" destination="RfE-Nr-1LW" id="aTW-FA-249"/>
-                                            <outlet property="removeButton" destination="mLi-oj-w7q" id="9Re-4G-7rk"/>
                                             <outlet property="titleLabel" destination="dND-lz-Nb6" id="mUO-bK-taV"/>
                                         </connections>
                                     </tableViewCell>
@@ -285,7 +272,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8rO-Fb-2yl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1767.6923076923076" y="932.70142180094786"/>
+            <point key="canvasLocation" x="1471" y="933"/>
         </scene>
         <!--맥 카페-->
         <scene sceneID="nED-KC-RlT">
@@ -356,7 +343,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b1k-Cv-XZt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-705" y="154"/>
+            <point key="canvasLocation" x="-226" y="154"/>
         </scene>
         <!--장바구니-->
         <scene sceneID="h5x-a1-q7o">
@@ -375,7 +362,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ty9-mh-0n3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1768" y="154"/>
+            <point key="canvasLocation" x="1471" y="154"/>
         </scene>
         <!--McCafe-->
         <scene sceneID="YeQ-RM-Kpe">
@@ -402,7 +389,6 @@
         <image name="cart" catalog="system" width="128" height="102"/>
         <image name="cup.and.saucer.fill" catalog="system" width="128" height="91"/>
         <image name="fork.knife" catalog="system" width="92" height="128"/>
-        <image name="xmark.app.fill" catalog="system" width="128" height="114"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
@@ -417,9 +403,6 @@
         </systemColor>
         <systemColor name="systemGrayColor">
             <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
