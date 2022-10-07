@@ -7,11 +7,22 @@
 
 import UIKit
 
+protocol StepButtonTypeDelegate {
+    func countStepperUp(burger: McdonaldModel)
+    func countStepperDown(burger: McdonaldModel, count: Int)
+}
+
 class BasketViewController: UIViewController {
     
     // MARK: - 변수선언부
     
-    @IBOutlet weak var orderButton: UIButton!
+    @IBOutlet weak var orderButton: UIButton! {
+        didSet {
+            if orderButton == nil {
+                print("닐 이야 ~ 버튼이")
+            }
+        }
+    }
     @IBOutlet weak var totalPriceLabel: UILabel!
     
     var basketData: [McdonaldModel]? {
@@ -74,6 +85,9 @@ class BasketViewController: UIViewController {
         let value = totalPrice as NSNumber
         numberFormatter.numberStyle = .decimal
         guard let result = numberFormatter.string(from: value) else { return }
+        if orderButton == nil {
+            print("오더버튼이 닐이야 ~~")
+        }
         self.totalPriceLabel.text = "\(result)원"
     }
     
@@ -119,7 +133,7 @@ class BasketViewController: UIViewController {
     
     func removeButton(burger: McdonaldModel, count: Int = 1) {
         dataManager.removeBasketData(burger: burger, count: count)
-        // updateDatas()
+        updateDatas()
         // setupDatas()
         // basketTableView.reloadData()
     }
@@ -156,6 +170,7 @@ extension BasketViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = basketTableView.dequeueReusableCell(withIdentifier: "BasketCell", for: indexPath) as! BasketCell
+        cell.delegate = self
         
         guard let array = basketData else { return cell }
         guard let countArray = basketCountDatas else { return cell }
@@ -187,5 +202,19 @@ extension BasketViewController: UITableViewDataSource {
 }
 
 extension BasketViewController: UITabBarControllerDelegate {
+    
+}
+
+extension BasketViewController: StepButtonTypeDelegate {
+    func countStepperUp(burger: McdonaldModel) {
+        dataManager.addToBasket(burger: burger)
+        updateDatas()
+    }
+    
+    func countStepperDown(burger: McdonaldModel, count: Int) {
+        dataManager.removeBasketData(burger: burger, count: count)
+        updateDatas()
+    }
+    
     
 }

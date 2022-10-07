@@ -86,7 +86,7 @@ final class DataManager {
         DataManager.basketArray.remove(at: index)
         calculTotalPrice()
     }
-    
+    // MARK: - REMOVE 함수
     func removeBasketData(burger: McdonaldModel, count: Int = 1) {
         print(#function)
         
@@ -99,7 +99,7 @@ final class DataManager {
             }
         }
         calculTotalPrice()
-        print(DataManager.basketDictionary)
+        // print(DataManager.basketDictionary)
     }
     
     func getTotalPrice() -> Int {

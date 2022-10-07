@@ -14,7 +14,6 @@ class MainViewController: UIViewController {
     var dataManager = DataManager()
     var burgerArray: [McdonaldModel] = []
     var basketArray: [Int] = []
-    var basketVC = BasketViewController()
     var numFormatter = NumberFormatter()
     
     override func viewDidLoad() {
@@ -66,7 +65,6 @@ class MainViewController: UIViewController {
             return
         }
     }
-    
 }
 
 extension MainViewController: UITableViewDelegate {

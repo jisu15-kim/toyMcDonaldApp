@@ -136,7 +136,7 @@
         <!--장바구니-->
         <scene sceneID="oKE-Qs-ngc">
             <objects>
-                <viewController id="RPJ-jM-s5H" customClass="BasketViewController" customModule="McDonaldApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BasketViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="RPJ-jM-s5H" customClass="BasketViewController" customModule="McDonaldApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="PwU-XH-9gC">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -267,12 +267,12 @@
                     <connections>
                         <outlet property="basketTableView" destination="z8W-bS-dvW" id="OMZ-et-l5K"/>
                         <outlet property="orderButton" destination="2RU-Ys-dxf" id="kjg-jf-KSz"/>
-                        <outlet property="totalPriceLabel" destination="jQH-V4-flN" id="mK5-xl-gMF"/>
+                        <outlet property="totalPriceLabel" destination="jQH-V4-flN" id="sKF-Rf-joW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8rO-Fb-2yl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1471" y="933"/>
+            <point key="canvasLocation" x="1470.7692307692307" y="932.70142180094786"/>
         </scene>
         <!--맥 카페-->
         <scene sceneID="nED-KC-RlT">

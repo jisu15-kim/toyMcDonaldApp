@@ -9,6 +9,8 @@ import UIKit
 
 class BasketCell: UITableViewCell {
     
+    var delegate: StepButtonTypeDelegate?
+    
     var item: McdonaldModel?
     var basketVC = BasketViewController()
     var itemCount: Double = 0.0
@@ -50,16 +52,21 @@ class BasketCell: UITableViewCell {
     
     @IBAction func countStepperTapped(_ sender: UIStepper) {
         countLabel.text = Int(sender.value).description
+        
+        
+        
         guard let data = item else { return }
         let gap = itemCount - sender.value
         if gap > 0 {
             // 마이너스 버튼 클릭됨
             print("마이너스 버튼 클릭됨")
-            basketVC.removeButton(burger: data, count: 1)
+            self.delegate?.countStepperDown(burger: data, count: 1)
+            // basketVC.removeButton(burger: data, count: 1)
         } else if gap < 0 {
             // 플러스 버튼 클릭됨
             print("플러스 버튼 클릭됨")
-            basketVC.addButton(burger: data)
+            self.delegate?.countStepperUp(burger: data)
+            // basketVC.addButton(burger: data)
         }
         itemCount = sender.value
     }
