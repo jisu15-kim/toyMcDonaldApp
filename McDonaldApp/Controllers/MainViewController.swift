@@ -14,32 +14,28 @@ class MainViewController: UIViewController {
     var dataManager = DataManager()
     var burgerArray: [McdonaldModel] = []
     var basketArray: [Int] = []
+    var basketVC = BasketViewController()
     var numFormatter = NumberFormatter()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupData()
         setupTableView()
         title = "버거 Burger"
-        
     }
     
     func setupData() {
+        dataManager.calculTotalPrice()
         dataManager.makeBurgerData()
         burgerArray = dataManager.getBurgerData()
-        refreshTabBar(num: 0)
         basketArray = dataManager.getBasketDataCounts()
-        tabBarController?.delegate = self
     }
     
     func setupTableView() {
         mainTableView.delegate = self
         mainTableView.dataSource = self
         mainTableView.rowHeight = 120
-    }
-    
-    func setupTabbar() {
-        
     }
     
     func addBasket(burger: McdonaldModel) {
@@ -53,18 +49,19 @@ class MainViewController: UIViewController {
         for array in basketArray {
             data += Int(array)
         }
-        refreshTabBar(num: data)
         print(data)
+//        fetchTabBarData(data: data)
+    }
+    func setupTabBar() {
+        UITabBar.appearance().tintColor = UIColor.black
     }
     
-    private func refreshTabBar(num: Int) {
-        if let tabItems = tabBarController?.tabBar.items {
-            // In this case we want to modify the badge number of the third tab:
-            let tabItem = tabItems[2]
-            tabItem.badgeValue = "\(num)"
-            return
-        }
+    func fetchTabBarData(data: Int) {
+        print("메인VC Fetch 함수 호출")
+        
+        // self.delegate?.fetchBadgeData(count: data)
     }
+
 }
 
 extension MainViewController: UITableViewDelegate {
@@ -91,17 +88,13 @@ extension MainViewController: UITableViewDataSource {
             return "\(result!)원"
         }
         
-        cell.mainTitle.text = burger.burgerName
+        cell.mainTitle.text = burger.name
         cell.kcalLabel.text = "\(burger.kcal)kcal"
-        cell.mainImage.image = burger.burgerImage
+        cell.mainImage.image = burger.image
         cell.priceLabel.text = price
         
         return cell
     }
     
-    
-}
-
-extension MainViewController: UITabBarControllerDelegate {
     
 }

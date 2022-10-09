@@ -6,11 +6,16 @@
 //
 
 import UIKit
+enum MenuType: Int {
+    case burger = 1
+    case cafe = 2
+}
 
 struct McdonaldModel: Hashable {
     
-    var burgerName: String
-    var burgerImage: UIImage?
+    var name: String
+    var image: UIImage?
     var kcal: Int
     var price: Int
+    var type: MenuType
 }

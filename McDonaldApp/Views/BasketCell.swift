@@ -10,7 +10,7 @@ import DropDown
 
 final class BasketCell: UITableViewCell {
     
-    var delegate: StepButtonTypeDelegate?
+    var delegate: DropDownEventDelegate?
     
     var item: McdonaldModel?
     var basketVC = BasketViewController()
@@ -19,11 +19,6 @@ final class BasketCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var mainImage: UIImageView!
     @IBOutlet weak var priceLabel: UILabel!
-    @IBOutlet weak var countLabel: UILabel!
-    @IBOutlet weak var countStepper: UIStepper!
-    @IBOutlet weak var removeButton: UIButton!
-    @IBOutlet weak var countSelector: UIButton!
-    
     @IBOutlet weak var dropView: UIView!
     @IBOutlet weak var tfInput: UITextField!
     @IBOutlet weak var ivIcon: UIImageView!
@@ -31,15 +26,16 @@ final class BasketCell: UITableViewCell {
     
     let dropDown = DropDown()
     
-    let cointList: [Int] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    let countList: [Int] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
         setupUI()
-        setupData()
+        setupDropDownUI()
+        setDropdown()
     }
-
+    
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
@@ -51,18 +47,10 @@ final class BasketCell: UITableViewCell {
         
     }
     
-    private func setupData() {
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
-            self.itemCount = self.countStepper.value
-            print("Value: \(self.countStepper.value)")
-            print(self.itemCount)
-        }
-    }
-    
     // DropDown UI 커스텀
-    func initUI() {
+    func setupDropDownUI() {
         // DropDown View의 배경
-        dropView.backgroundColor = UIColor.init(named: "#F1F1F1")
+        dropView.backgroundColor = .systemGray6
         dropView.layer.cornerRadius = 8
         
         DropDown.appearance().textColor = UIColor.black // 아이템 텍스트 색상
@@ -71,30 +59,52 @@ final class BasketCell: UITableViewCell {
         DropDown.appearance().selectionBackgroundColor = UIColor.lightGray // 선택한 아이템 배경 색상
         DropDown.appearance().setupCornerRadius(8)
         dropDown.dismissMode = .automatic // 팝업을 닫을 모드 설정
-            
-        tfInput.text = "선택해주세요." // 힌트 텍스트
-            
+        
+        tfInput.text = "5" // 힌트 텍스트
+        tfInput.textAlignment = .center
+        tfInput.backgroundColor = .systemGray6
+        tfInput.layer.borderColor = UIColor.clear.cgColor
+        
         ivIcon.tintColor = UIColor.gray
+        btnSelect.setTitle("", for: .normal)
+    }
+    // DropDown Set
+    func setDropdown() {
+        // dataSource로 ItemList를 연결
+        let stringArray = countList.map {
+            (number: Int) -> String in
+            return String(number)
+        }
+        dropDown.dataSource = stringArray
+        
+        // anchorView를 통해 UI와 연결
+        dropDown.anchorView = self.dropView
+        
+        // View를 갖리지 않고 View아래에 Item 팝업이 붙도록 설정
+        dropDown.bottomOffset = CGPoint(x: 0, y: dropView.bounds.height)
+        
+        // Item 선택 시 처리
+        dropDown.selectionAction = { [weak self] (index, count) in
+            //선택한 Item을 TextField에 넣어준다.
+            let intItem = Int(count)!
+            guard let data = self!.item else { return }
+            
+            self!.tfInput.text = count
+            self?.delegate?.setBasketData(burger: data, data: intItem)
+            // self!.ivIcon.image = UIImage(systemName: "arrowtriangle.up.fill")
+        }
+        
+        // 취소 시 처리
+        dropDown.cancelAction = { [weak self] in
+            //빈 화면 터치 시 DropDown이 사라지고 아이콘을 원래대로 변경
+            // self!.ivIcon.image = UIImage(systemName: "arrowtriangle.down.fill")
+        }
     }
     
-    @IBAction func countStepperTapped(_ sender: UIStepper) {
-        countLabel.text = Int(sender.value).description
-        
-        // 지금은 임시방편 .. 어떻게 +와 - 를 구분할것인지?
-        
-        guard let data = item else { return }
-        let gap = itemCount - sender.value
-        if gap > 0 {
-            // 마이너스 버튼 클릭됨
-            print("마이너스 버튼 클릭")
-            self.delegate?.countStepperDown(burger: data, count: 1)
-        } else if gap < 0 {
-            // 플러스 버튼 클릭됨
-            print("플러스 버튼 클릭")
-            self.delegate?.countStepperUp(burger: data)
-        }
-        itemCount = sender.value
-        print("itemCount: \(itemCount)")
+    @IBAction func dropDownBtnTapped(_ sender: UIButton) {
+        print("DROP 버튼이 눌렸어")
+        dropDown.show()
+        // 아이콘 이미지를 변경하여 DropDown이 펼쳐진 것을 표현
+        // self.ivIcon.image = UIImage(systemName: "arrowtriangle.up.fill")
     }
 }
-
