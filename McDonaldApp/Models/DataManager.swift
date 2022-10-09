@@ -41,7 +41,23 @@ final class DataManager {
     }
     
     // MARK: - 장바구니 관련 함수
-    
+    // MARK: - REMOVE 함수
+    func removeBasketData(burger: McdonaldModel, count: Int = 1) {
+        
+        guard var data = DataManager.basketDictionary[burger] else { return } // 누른 버거의 카운트
+        data -= count
+        if data > 0 {
+            DataManager.basketDictionary.updateValue(data, forKey: burger)
+            if data == 0 {
+                DataManager.basketDictionary.removeValue(forKey: burger)
+            }
+        }
+        if data == 0 {
+            DataManager.basketDictionary.removeValue(forKey: burger)
+        }
+        calculTotalPrice()
+        // print(DataManager.basketDictionary)
+    }
     func addToBasket(burger: McdonaldModel) {
         DataManager.basketArray.append(burger)
         
@@ -82,25 +98,7 @@ final class DataManager {
         return data
     }
     
-    func removeBasketItem(index: Int) {
-        DataManager.basketArray.remove(at: index)
-        calculTotalPrice()
-    }
-    // MARK: - REMOVE 함수
-    func removeBasketData(burger: McdonaldModel, count: Int = 1) {
-        print(#function)
-        
-        guard var data = DataManager.basketDictionary[burger] else { return }
-        if data > 0 {
-            data -= count
-            DataManager.basketDictionary.updateValue(count, forKey: burger)
-            if data == 0 {
-                DataManager.basketDictionary.removeValue(forKey: burger)
-            }
-        }
-        calculTotalPrice()
-        // print(DataManager.basketDictionary)
-    }
+
     
     func getTotalPrice() -> Int {
         return DataManager.total

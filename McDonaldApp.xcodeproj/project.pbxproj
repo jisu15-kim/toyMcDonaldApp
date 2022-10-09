@@ -20,9 +20,12 @@
 		CD4B3EAE28EC7E2800EE2006 /* TableViewButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4B3EAD28EC7E2800EE2006 /* TableViewButton.swift */; };
 		CD4B3EB028EC911F00EE2006 /* BasketCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4B3EAF28EC911F00EE2006 /* BasketCell.swift */; };
 		CD57683628EDE4FD00C8F0F3 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD57683528EDE4FD00C8F0F3 /* EmptyView.swift */; };
+		CDE7527028F19E5300F85F2D /* DropDown in Frameworks */ = {isa = PBXBuildFile; productRef = CDE7526F28F19E5300F85F2D /* DropDown */; };
+		F3DDEC025F394C3293F03667 /* Pods_McDonaldApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADDD8F56F7386FC018B184FC /* Pods_McDonaldApp.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		ADDD8F56F7386FC018B184FC /* Pods_McDonaldApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_McDonaldApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD4B3E8A28EC60CB00EE2006 /* McDonaldApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = McDonaldApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD4B3E8D28EC60CB00EE2006 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CD4B3E8F28EC60CB00EE2006 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -38,6 +41,7 @@
 		CD4B3EAD28EC7E2800EE2006 /* TableViewButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewButton.swift; sourceTree = "<group>"; };
 		CD4B3EAF28EC911F00EE2006 /* BasketCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketCell.swift; sourceTree = "<group>"; };
 		CD57683528EDE4FD00C8F0F3 /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
+		CDE7526E28F19E4700F85F2D /* DropDown */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = DropDown; path = ../../../Downloads/DropDown; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,17 +49,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3DDEC025F394C3293F03667 /* Pods_McDonaldApp.framework in Frameworks */,
+				CDE7527028F19E5300F85F2D /* DropDown in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		76B38C4D43D1CE5E3BFC71BE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				ADDD8F56F7386FC018B184FC /* Pods_McDonaldApp.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		CD4B3E8128EC60CB00EE2006 = {
 			isa = PBXGroup;
 			children = (
+				CDE7526D28F19E4700F85F2D /* Packages */,
 				CD4B3E8C28EC60CB00EE2006 /* McDonaldApp */,
 				CD4B3E8B28EC60CB00EE2006 /* Products */,
+				76B38C4D43D1CE5E3BFC71BE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -120,6 +136,14 @@
 			path = Delegate;
 			sourceTree = "<group>";
 		};
+		CDE7526D28F19E4700F85F2D /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				CDE7526E28F19E4700F85F2D /* DropDown */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -127,6 +151,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CD4B3E9E28EC60CC00EE2006 /* Build configuration list for PBXNativeTarget "McDonaldApp" */;
 			buildPhases = (
+				9D9DBC678D9772175161640A /* [CP] Check Pods Manifest.lock */,
 				CD4B3E8628EC60CB00EE2006 /* Sources */,
 				CD4B3E8728EC60CB00EE2006 /* Frameworks */,
 				CD4B3E8828EC60CB00EE2006 /* Resources */,
@@ -136,6 +161,9 @@
 			dependencies = (
 			);
 			name = McDonaldApp;
+			packageProductDependencies = (
+				CDE7526F28F19E5300F85F2D /* DropDown */,
+			);
 			productName = McDonaldApp;
 			productReference = CD4B3E8A28EC60CB00EE2006 /* McDonaldApp.app */;
 			productType = "com.apple.product-type.application";
@@ -185,6 +213,31 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		9D9DBC678D9772175161640A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-McDonaldApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		CD4B3E8628EC60CB00EE2006 /* Sources */ = {
@@ -420,6 +473,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		CDE7526F28F19E5300F85F2D /* DropDown */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DropDown;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = CD4B3E8228EC60CB00EE2006 /* Project object */;
 }

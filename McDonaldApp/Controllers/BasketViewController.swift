@@ -12,7 +12,7 @@ protocol StepButtonTypeDelegate {
     func countStepperDown(burger: McdonaldModel, count: Int)
 }
 
-class BasketViewController: UIViewController {
+final class BasketViewController: UIViewController {
     
     // MARK: - 변수선언부
     
@@ -32,7 +32,11 @@ class BasketViewController: UIViewController {
             emptyTextConditional()
         }
     }
-    var basketCountDatas: [Int]?
+    var basketCountDatas: [Int]? {
+        didSet {
+            basketTableView.reloadData()
+        }
+    }
     var dataManager = DataManager()
     let tabBar = UITabBarItem()
     let numberFormatter = NumberFormatter()
@@ -70,7 +74,7 @@ class BasketViewController: UIViewController {
         basketTableView.reloadData()
     }
     
-    func setupDatas() {
+    private func setupDatas() {
         let keys = Array(dataManager.getBasketData().keys)
         self.basketData = keys
 
@@ -80,7 +84,8 @@ class BasketViewController: UIViewController {
         totalPrice = dataManager.getTotalPrice()
     }
     
-    func updateDatas() { // 도데체 왜 에러가 날까 ?!
+    // 합계금액 업데이트
+    private func updateDatas() {
         totalPrice = dataManager.getTotalPrice()
         let value = totalPrice as NSNumber
         numberFormatter.numberStyle = .decimal
@@ -91,29 +96,29 @@ class BasketViewController: UIViewController {
         self.totalPriceLabel.text = "\(result)원"
     }
     
-    func setupTableView() {
+    private func setupTableView() {
         title = "장바구니"
         basketTableView.delegate = self
         basketTableView.dataSource = self
         basketTableView.rowHeight = 150
     }
     
-    func setupTabBar() {
+    private func setupTabBar() {
         tabBarController?.delegate = self
     }
     
-    func setupUI() {
+    private func setupUI() {
         orderButton.layer.cornerRadius = 7
     }
     
-    func showEmptyText() {
+    private func showEmptyText() {
         view.addSubview(emptyLabel)
         self.emptyLabel.translatesAutoresizingMaskIntoConstraints = false
         self.emptyLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
         self.emptyLabel.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
     }
     
-    func emptyTextConditional() {
+    private func emptyTextConditional() {
         guard let data = basketData else { return }
         if data.count == 0 {
             emptyLabel.text = "텅~ 비었어요🫙"
@@ -122,7 +127,7 @@ class BasketViewController: UIViewController {
         }
     }
     
-    func refreshTabBar(num: Int) {
+    private func refreshTabBar(num: Int) {
         if let tabItems = tabBarController?.tabBar.items {
             // In this case we want to modify the badge number of the third tab:
             let tabItem = tabItems[2]
@@ -130,28 +135,16 @@ class BasketViewController: UIViewController {
             return
         }
     }
-    
-    func removeButton(burger: McdonaldModel, count: Int = 1) {
-        dataManager.removeBasketData(burger: burger, count: count)
-        updateDatas()
-        // setupDatas()
-        // basketTableView.reloadData()
-    }
-    
-    func addButton(burger: McdonaldModel) {
-        dataManager.addToBasket(burger: burger)
-        // updateDatas()
-    }
-    
 }
 
+// MARK: - TableView Delegate
 extension BasketViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let delete = UIContextualAction(style: .normal, title: "삭제") { (UIContextualAction, UIView, success: @escaping (Bool) -> Void) in
             guard let selectedBurger = self.basketData?[indexPath.row] else { return }
             guard let selectedBurgerCount = self.basketCountDatas?[indexPath.row] else { return }
-            self.removeButton(burger: selectedBurger, count: selectedBurgerCount)
+            self.countStepperDown(burger: selectedBurger, count: selectedBurgerCount)
             success(true)
         }
         delete.backgroundColor = .systemRed
@@ -177,6 +170,7 @@ extension BasketViewController: UITableViewDataSource {
         let item = array[indexPath.row]
         let count = countArray[indexPath.row]
         cell.item = item
+
         
         // 콤마찍기
         var price: String {
@@ -194,17 +188,14 @@ extension BasketViewController: UITableViewDataSource {
         print(count)
         return cell
     }
-    
-    //    func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-    //
-    //        return "This is table footer"
-    //    }
 }
 
+// MARK: - Tabbar Delegate
 extension BasketViewController: UITabBarControllerDelegate {
     
 }
 
+// MARK: - Custom Delegate - StepButtonTypeDelegate
 extension BasketViewController: StepButtonTypeDelegate {
     func countStepperUp(burger: McdonaldModel) {
         dataManager.addToBasket(burger: burger)
