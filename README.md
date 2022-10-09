@@ -19,12 +19,18 @@ McDonaldAPP for learning
 ## 문제와 해결
 
 * 뷰 컨트롤러 서로간, 뷰 컨트롤러와 테이블뷰셀간 데이터 전송을 어떻게 해야 효과적일지?
-  * Custom Delegate의 활용이 필요함
+  * **Custom Delegate**의 활용이 필요함
   * 특히, Cell의 이벤트와 데이터를 ViewController로 전달할 때 처음에는 각 Cell에서 ViewController의 인스턴스를 생성했었는데, 해당 방법보다 CustomDelegate를 활용한 데이터 전달이 효율적인 관리가 용이한 것을 알게 됨
   
 * TabBar item Badge 실시간 업데이트
   * SceneDelegate에 존재하는 TabBar에 데이터를 전달하는 방법에 대한 고민을 지속함
-  * NotificationCenter를 활용해 업데이트가 필요한 경우 알림과 함께 해당 데이터를 전달하도록 구현함
+  * **NotificationCenter**를 활용해 업데이트가 필요한 경우 알림과 함께 해당 데이터를 전달하도록 구현함
+  
+### 기타 배운 것
+  * NumberFormatter
+  * Dictionary 활용
+  * DropDown 라이브러리 활용
+  * UISwifeAction 활용
   
 ## 느낀점
 * 그동안 학습한 내용을 실제 나의 프로젝트에 적용하는 것이 쉽지만은 않았지만, 배운 내용에서 조금씩만 수정을 하니 구현이 되었고 미미하지만 감을 조금 잡은 것 같음
